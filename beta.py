@@ -1,29 +1,29 @@
 import streamlit as st
 import pandas as pd
 
-# Load the data from the GitHub URL
+# Load the data
 @st.cache
 def load_data():
-    url = 'https://raw.githubusercontent.com/rmkenv/ejchat/main/cleaned_ejtoolmatrix.csv'
-    data = pd.read_csv(url)
+    data = pd.read_csv('ejmatrix_cleaned.csv')
     return data
 
-data = load_data()
+df = load_data()
 
-# Sidebar for tool selection
-st.sidebar.header("Tool Selection")
-tool1 = st.sidebar.selectbox("Select the first tool for comparison:", options=data['Indicator'].unique())
-tool2 = st.sidebar.selectbox("Select the second tool for comparison:", options=data['Indicator'].unique())
+# Select Tools
+tool_options = df['tool name'].unique()
+selected_tools = st.multiselect('Select up to 3 tools to compare:', tool_options, default=tool_options[:3])
 
-# Filter data based on selections
-filtered_data_tool1 = data[data['Indicator'] == tool1]
-filtered_data_tool2 = data[data['Indicator'] == tool2]
+# Filter data based on selection
+if selected_tools:
+    filtered_df = df[df['tool name'].isin(selected_tools)]
 
-# Display results
-st.title("Environmental Metrics Comparison")
+    # Assuming that the DataFrame 'filtered_df' now contains the rows for the selected tools,
+    # and each column (other than 'tool name' and maybe 'Affilation') represents a different indicator.
+    # We need to highlight differences between the tools. This can be a complex task depending on the data's nature.
+    # A simple way could be to transpose the data for better visualization.
+    comparison_df = filtered_df.set_index('tool name').T
 
-# Define a function to generate the response for a given tool and metrics as a dataframe-style table
-def generate_response(tool, metrics):
-    st.subheader(tool)
-    st.dataframe(metrics)
+    st.dataframe(comparison_df.style.apply(lambda x: ["background: yellow" if v != x[0] else "" for v in x], axis=1))
 
+# Instructions for running the Streamlit app
+# Save this script as app.py and run it using the command: streamlit run app.py
