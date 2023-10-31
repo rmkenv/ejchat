@@ -27,14 +27,20 @@ def compare_tool_indicators(tool1, tool2, tool3):
     indicators_tool1 = tool_indicators[tool1]
     indicators_tool2 = tool_indicators[tool2]
     indicators_tool3 = tool_indicators[tool3] if tool3 != "None" else set()
+    # ... rest of the function remains unchanged ...
 
-    # Find unique and common indicators
-    unique_to_tool1 = indicators_tool1 - indicators_tool2 - indicators_tool3
-    unique_to_tool2 = indicators_tool2 - indicators_tool1 - indicators_tool3
-    unique_to_tool3 = indicators_tool3 - indicators_tool1 - indicators_tool2 if tool3 != "None" else set()
-    common_to_all = indicators_tool1 & indicators_tool2 & (indicators_tool3 if tool3 != "None" else indicators_tool1)
+# Function to add details to the results, now including demographic information
+def add_details(indicators, tool_name):
+    for indicator in indicators:
+        results["Indicator"].append(indicator)
+        results["Unique to"].append(tool_name)
 
-    return unique_to_tool1, unique_to_tool2, unique_to_tool3, common_to_all
+        # Lookup demographic details
+        details = df_details[df_details["Indicator"] == indicator]
+        if not details.empty:
+            results["Demographic Details"].append(details["Demographic Info"].values[0])
+        else:
+            results["Demographic Details"].append("No Details Available")
 
 # Streamlit app setup
 st.title("Environmental Tools Indicator Comparison")
@@ -48,17 +54,12 @@ tool3 = st.selectbox("Select the third tool (optional):", ["None"] + list(tool_i
 if st.button("Compare Tools"):
     unique_to_tool1, unique_to_tool2, unique_to_tool3, common_to_all = compare_tool_indicators(tool1, tool2, tool3)
 
-    # Prepare a DataFrame for displaying results
+    # Prepare a DataFrame for displaying results, now including a column for demographic details
     results = {
         "Indicator": [],
-        "Unique to": []
+        "Unique to": [],
+        "Demographic Details": []  # New column
     }
-
-    # Function to add details to the results
-    def add_details(indicators, tool_name):
-        for indicator in indicators:
-            results["Indicator"].append(indicator)
-            results["Unique to"].append(tool_name)
 
     # Add data to the results DataFrame
     add_details(unique_to_tool1, tool1)
