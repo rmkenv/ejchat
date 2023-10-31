@@ -31,7 +31,8 @@ if selected_tools:
 
 # Custom HTML 
 # Using Markdown to create a hyperlink
-st.markdown("[Buy me a coffee ☕](https://www.buymeacoffee.com/kmetzrm)", unsafe_allow_html=True)
+buy_me_coffee_script = "[Buy me a coffee ☕](https://www.buymeacoffee.com/kmetzrm)"
+st.markdown(buy_me_coffee_script, unsafe_allow_html=True)
 
 fork_on_github_style = """
 <style>
