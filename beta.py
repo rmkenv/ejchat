@@ -29,10 +29,15 @@ if selected_tools:
 # Instructions for running the Streamlit app
 # Save this script as app.py and run it using the command: streamlit run app.py
 
-# Custom HTML 
+# Title for the Streamlit app
+st.title("Environmental Justice Datasets Comparison App")
+
+# Text description box
+st.markdown("EJ Data is different depending on the state and federal level. This tool aims to simplify the comparisons of EJ indicators and data sources for up to 3 tools. The data is derived from the work of Konisky, D., Gonzalez, D., & Leatherman, K. (2021). Mapping for Environmental Justice: An Analysis of State Level Tools. Indiana University’s Paul H. O’Neill School of Public and Environmental Affairs and Environmental Resilience Institute. [Link to the dataset](https://hdl.handle.net/2022/29445)")
+
+# Custom HTML
 # Using Markdown to create a hyperlink
-buy_me_coffee_script = "[Buy me a coffee ☕](https://www.buymeacoffee.com/kmetzrm)"
-st.markdown(buy_me_coffee_script, unsafe_allow_html=True)
+st.markdown("[Buy me a coffee ☕](https://www.buymeacoffee.com/kmetzrm)", unsafe_allow_html=True)
 
 fork_on_github_style = """
 <style>
