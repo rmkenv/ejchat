@@ -57,10 +57,8 @@ if st.button("Compare Tools"):
     # Function to add details to the results
     def add_details(indicators, tool_name):
         for indicator in indicators:
-            details = df_details[df_details['Indicator'] == indicator]
             results["Indicator"].append(indicator)
             results["Unique to"].append(tool_name)
-            results["Overall Category"].append(details["Category"].values[0] if not details.empty else "N/A")
 
     # Add data to the results DataFrame
     add_details(unique_to_tool1, tool1)
