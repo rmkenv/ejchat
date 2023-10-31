@@ -104,5 +104,6 @@ fork_on_github_style = """
 
 # Use Markdown to render HTML/JS
 st.markdown(buy_me_coffee_script, unsafe_allow_html=True)
+st.markdown(fork_on_github_style, unsafe_allow_html=True)
 
 
