@@ -9,7 +9,7 @@ def load_data(url):
 
 # Replace these URLs with the actual paths or URLs of your datasets
 df = load_data("https://github.com/rmkenv/ejchat/blob/main/ejtoolmatrix.csv?raw=true")
-df_details = load_data("https://github.com/rmkenv/ejchat/blob/main/demographics")
+df_details = load_data("https://raw.githubusercontent.com/rmkenv/ejchat/main/demographics")
 
 # Process the first dataframe to get tool names and indicators
 tool_indicators = {}
