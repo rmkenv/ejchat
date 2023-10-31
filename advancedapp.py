@@ -27,20 +27,33 @@ def compare_tool_indicators(tool1, tool2, tool3):
     indicators_tool1 = tool_indicators[tool1]
     indicators_tool2 = tool_indicators[tool2]
     indicators_tool3 = tool_indicators[tool3] if tool3 != "None" else set()
-    # ... rest of the function remains unchanged ...
 
-# Function to add details to the results, now including demographic information
-def add_details(indicators, tool_name):
+    # Find unique and common indicators
+    unique_to_tool1 = indicators_tool1 - indicators_tool2 - indicators_tool3
+    unique_to_tool2 = indicators_tool2 - indicators_tool1 - indicators_tool3
+    unique_to_tool3 = indicators_tool3 - indicators_tool1 - indicators_tool2 if tool3 != "None" else set()
+    common_to_all = indicators_tool1 & indicators_tool2 & (indicators_tool3 if tool3 != "None" else indicators_tool1)
+
+    return unique_to_tool1, unique_to_tool2, unique_to_tool3, common_to_all
+
+# New function to aggregate demographic differences
+def aggregate_demographics(indicators, tool_name):
+    demographics = {
+        "Tool": [],
+        "Indicator": [],
+        "Demographic Details": []
+    }
     for indicator in indicators:
-        results["Indicator"].append(indicator)
-        results["Unique to"].append(tool_name)
+        demographics["Tool"].append(tool_name)
+        demographics["Indicator"].append(indicator)
 
         # Lookup demographic details
         details = df_details[df_details["Indicator"] == indicator]
         if not details.empty:
-            results["Demographic Details"].append(details["Demographic Info"].values[0])
+            demographics["Demographic Details"].append(details["Demographic Info"].values[0])
         else:
-            results["Demographic Details"].append("No Details Available")
+            demographics["Demographic Details"].append("No Details Available")
+    return demographics
 
 # Streamlit app setup
 st.title("Environmental Tools Indicator Comparison")
@@ -54,12 +67,17 @@ tool3 = st.selectbox("Select the third tool (optional):", ["None"] + list(tool_i
 if st.button("Compare Tools"):
     unique_to_tool1, unique_to_tool2, unique_to_tool3, common_to_all = compare_tool_indicators(tool1, tool2, tool3)
 
-    # Prepare a DataFrame for displaying results, now including a column for demographic details
+    # Prepare a DataFrame for displaying results
     results = {
         "Indicator": [],
-        "Unique to": [],
-        "Demographic Details": []  # New column
+        "Unique to": []
     }
+
+    # Function to add details to the results
+    def add_details(indicators, tool_name):
+        for indicator in indicators:
+            results["Indicator"].append(indicator)
+            results["Unique to"].append(tool_name)
 
     # Add data to the results DataFrame
     add_details(unique_to_tool1, tool1)
@@ -71,9 +89,34 @@ if st.button("Compare Tools"):
 
     # Convert results to DataFrame and display
     results_df = pd.DataFrame(results)
+    st.subheader("Indicator Differences")
     st.dataframe(results_df)
+
+    # Preparing the second table for demographic differences
+    demo_results = {
+        "Tool": [],
+        "Indicator": [],
+        "Demographic Details": []
+    }
+
+    # Aggregate demographic information
+    for tool, indicators in [(tool1, unique_to_tool1), (tool2, unique_to_tool2), (tool3, unique_to_tool3 if tool3 != "None" else set()), ("Common to All", common_to_all)]:
+        demo_info = aggregate_demographics(indicators, tool)
+        demo_results["Tool"].extend(demo_info["Tool"])
+        demo_results["Indicator"].extend(demo_info["Indicator"])
+        demo_results["Demographic Details"].extend(demo_info["Demographic Details"])
+
+    # Convert demographic results to DataFrame and display
+    demo_results_df = pd.DataFrame(demo_results)
+    st.subheader("Demographic Differences")
+    st.dataframe(demo_results_df)
 
     # Allow downloading as CSV
     csv = results_df.to_csv(index=False)
     b = io.BytesIO(csv.encode())
     st.download_button(label="Download comparison results as CSV", data=b, file_name='comparison_results.csv', mime='text/csv')
+
+    # Allow downloading demographic results as CSV
+    csv_demo = demo_results_df.to_csv(index=False)
+    b_demo = io.BytesIO(csv_demo.encode())
+    st.download_button(label="Download demographic comparison results as CSV", data=b_demo, file_name='demographic_comparison_results.csv', mime='text/csv')
