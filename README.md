@@ -1,5 +1,5 @@
 
-# Streamlit Environental Justice Data Comparison App
+# Streamlit Environmental Justice (EJ) Data Comparison App
 
 This is a set of insturctions for a simple Streamlit web application (https://ejchat-gn8vl5srsr6ajmmzu3tfsp.streamlit.app/) that allows you to compare data from Environmental Justice Datasets. You can select up to three tools from a dataset and visualize the differences between them.
 
