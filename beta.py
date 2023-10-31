@@ -22,22 +22,8 @@ filtered_data_tool2 = data[data['Indicator'] == tool2]
 # Display results
 st.title("Environmental Metrics Comparison")
 
-# Define a function to generate the response for a given tool and metrics
+# Define a function to generate the response for a given tool and metrics as a dataframe-style table
 def generate_response(tool, metrics):
     st.subheader(tool)
-    for index, row in metrics.iterrows():
-        st.write(row['Indicator'])
-        for column in metrics.columns[1:]:
-            st.write(f"{column}: {row[column]}")
-        st.write("---")
+    st.dataframe(metrics)
 
-# Generate responses for the selected tools and metrics
-generate_response(tool1, filtered_data_tool1)
-generate_response(tool2, filtered_data_tool2)
-
-st.header("Observations")
-st.subheader("Ozone Measurement")
-st.write("Provide observations based on the comparison of Ozone metrics here.")
-
-st.subheader("Particulate Matter (PM2.5)")
-st.write("Provide observations based on the comparison of Particulate Matter (PM2.5) metrics here.")
