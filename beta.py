@@ -29,13 +29,9 @@ if selected_tools:
 # Instructions for running the Streamlit app
 # Save this script as app.py and run it using the command: streamlit run app.py
 
-# Custom HTML and JS
-buy_me_coffee_script = """
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" 
-data-name="bmc-button" data-slug="kmetzrm" data-color="#FFDD00" data-emoji="☕"  
-data-font="Arial" data-text="Buy me a coffee" data-outline-color="#000000" 
-data-font-color="#000000" data-coffee-color="#ffffff" ></script>
-"""
+# Custom HTML 
+# Using Markdown to create a hyperlink
+st.markdown("[Buy me a coffee ☕](https://www.buymeacoffee.com/kmetzrm)", unsafe_allow_html=True)
 
 fork_on_github_style = """
 <style>
