@@ -9,7 +9,7 @@ def load_data(url):
 
 # Load datasets
 df = load_data("https://github.com/rmkenv/ejchat/blob/main/ejtoolmatrix.csv?raw=true")
-df_details = load_data("/https://raw.githubusercontent.com/rmkenv/ejchat/main/demographics")  
+df_details = load_data("https://raw.githubusercontent.com/rmkenv/ejchat/main/demographics")  
 
 # Dictionary for tool names and their indicators
 tool_indicators = {}
