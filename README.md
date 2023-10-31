@@ -38,11 +38,16 @@ This is a simple Streamlit web application that allows you to compare data from 
 
 - [Fork me on GitHub](https://github.com/rmkenv/ejchat/tree/main): A custom GitHub fork link that allows you to contribute to the project.
 
+
+## Data Reference
+Konisky, D., Gonzalez, D., & Leatherman, K. (2021). Mapping for Environmental Justice: An Analysis of State Level Tools. Indiana University’s Paul H. O’Neill School of Public and Environmental Affairs and Environmental Resilience Institute. https://hdl.handle.net/2022/29445
+
+
 ## About the Author
 
 This Streamlit app was created by [rmkenv](https://github.com/rmkenv). If you find this app useful or have any suggestions for improvement, feel free to contribute or show your support by buying a coffee!
 
-Enjoy using the GitHub Data Comparison App!
+Enjoy using the EJ Data Comparison App!
 
 
 
@@ -55,5 +60,3 @@ Enjoy using the GitHub Data Comparison App!
 
 
 
-Data derived from 
-Konisky, D., Gonzalez, D., & Leatherman, K. (2021). Mapping for Environmental Justice: An Analysis of State Level Tools. Indiana University’s Paul H. O’Neill School of Public and Environmental Affairs and Environmental Resilience Institute. https://hdl.handle.net/2022/29445
