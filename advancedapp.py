@@ -52,8 +52,7 @@ if st.button("Compare Tools"):
     results = {
         "Indicator": [],
         "Unique to": [],
-        "Category": [],
-        "Metric": []
+        "Overall Category": []
     }
 
     # Function to add details to the results
@@ -62,8 +61,7 @@ if st.button("Compare Tools"):
             details = df_details[df_details['Indicator'] == indicator]
             results["Indicator"].append(indicator)
             results["Unique to"].append(tool_name)
-            results["Category"].append(details["Category"].values[0] if not details.empty else "N/A")
-            results["Metric"].append(details["Metric"].values[0] if not details.empty else "N/A")
+            results["Overall Category"].append(details["Category"].values[0] if not details.empty else "N/A")
 
     # Add data to the results DataFrame
     add_details(unique_to_tool1, tool1)
