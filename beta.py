@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
 
-# Load the cleaned data
+# Load the data from the GitHub URL
 @st.cache
 def load_data():
-    data = pd.read_csv('cleaned_ejtoolmatrix.csv')
+    url = 'https://raw.githubusercontent.com/rmkenv/ejchat/main/cleaned_ejtoolmatrix.csv'
+    data = pd.read_csv(url)
     return data
 
 data = load_data()
