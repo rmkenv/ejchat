@@ -51,8 +51,7 @@ if st.button("Compare Tools"):
     # Prepare a DataFrame for displaying results
     results = {
         "Indicator": [],
-        "Unique to": [],
-        "Overall Category": []
+        "Unique to": []
     }
 
     # Function to add details to the results
